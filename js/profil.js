@@ -68,7 +68,8 @@ const ConvertXp = (xp) => {
     } else if (xp < 1000000) {
         return (Math.round(xp * 0.001)).toString() + "KB";
     } else {
-        return (Math.round(xp * 0.0001)).toString() + "MB";
+        var temp = xp / 1000000
+        return temp.toFixed(2).toString() + "MB";;
     }
 }
 
@@ -80,6 +81,7 @@ const ConvertXpBar = (xp) => {
         return ((xp * 0.001).toFixed(1)).toString() + "KB";
     } else {
         return (xp * 0.0001).toFixed(1).toString() + "MB";
+
     }
 }
 
@@ -170,7 +172,7 @@ const GraphqlData = () => {
             let email = document.getElementById("Email");
             prenom.textContent = data.data.user[0].attrs.firstName;
             nom.textContent = data.data.user[0].attrs.lastName;
-            age.textContent = data.data.user[0].attrs.age;
+            age.textContent = getAgeFromBirthDate(data.data.user[0].attrs.dateOfBirth);
             email.textContent = data.data.user[0].attrs.email;
         })
         .catch(error => {
@@ -178,6 +180,20 @@ const GraphqlData = () => {
             window.location.href = "index.html";
             // Redirige vers la page de connexion en cas d'erreur
         });
+}
+const getAgeFromBirthDate = (birthDateString) => {
+    let birthDate = new Date(birthDateString);
+    let today = new Date();
+
+    let age = today.getFullYear() - birthDate.getFullYear();
+    let monthDifference = today.getMonth() - birthDate.getMonth();
+
+    // Vérifier si l'anniversaire est passé cette année
+    if (monthDifference < 0 || (monthDifference === 0 && today.getDate() < birthDate.getDate())) {
+        age--;
+    }
+
+    return age;
 }
 
 // Fonction pour dessiner le diagramme circulaire
