@@ -69,16 +69,6 @@ h1 {
   color: #000;
 }
 
-/* Styles for SVG elements */
-.fp, .xp {
-  position: relative;
-}
-
-.fp:hover text.pass, .fp:hover text.fail,
-.xp:hover text.pass, .xp:hover text.fail {
-  fill: #fff; /* Change text color to white on hover */
-}
-
 @media (max-width: 768px) {
   .grid {
     grid-template-columns: 1fr;
